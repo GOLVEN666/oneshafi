@@ -1,5 +1,7 @@
 import type React from "react"
 import { Navbar, SideNavbar } from "./navigation"
+import Footer from "./Footer"
+import { navigation } from "@/lib/constant"
 
 interface PageLayoutProps {
   children: React.ReactNode
@@ -7,11 +9,19 @@ interface PageLayoutProps {
 }
 
 export default function PageLayout({ children, route }: PageLayoutProps) {
+  const currentRoute = navigation.find((item) => item.route === route)
+  const showSideNavbar = currentRoute && currentRoute.sections && currentRoute.sections.length > 0
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-brown-50">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <SideNavbar route={route} />
-      <main className="container px-4 py-8 mx-auto">{children}</main>
+      <main className="flex-grow">
+        <div className="relative">
+          {showSideNavbar && <SideNavbar route={route} />}
+          {children}
+        </div>
+      </main>
+      <Footer />
     </div>
   )
 }

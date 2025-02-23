@@ -9,103 +9,108 @@ import { useScrollSpy } from "@/hooks/use-scroll-spy"
 import { navigation } from "@/lib/constant"
 import eclipse from "@/assets/logo/eclipse.svg"
 import group from "@/assets/logo/group.svg"
-export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isHeroSection, setIsHeroSection] = useState(true)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+import { usePathname } from "next/navigation"
+export function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
-  const activeSection = useScrollSpy(
-    navigation[0].sections.map((s) => s.id),
-    50,
-  )
-
-  useEffect(() => {
-    setIsHeroSection(activeSection === "hero")
-  }, [activeSection])
+  const currentRoute = navigation.find((item) => item.route === pathname) || navigation[0]
 
   return (
-    <header
-      className={`sticky top-0 z-50 flex items-center justify-between px-6 py-2 mx-auto ${
-        isHeroSection ? "text-blue-800 bg-white" : "text-white bg-transparent backdrop-blur-sm"
-      } transition-all duration-300`}
-    >
-      <nav className="container mx-auto">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="relative w-20 h-20 text-2xl font-bold">
-          <motion.div
-              className="absolute w-full h-full"
-              animate={{
-                rotate: 360,
-              }}
-              transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "linear" }}
-            >
-              <img src={eclipse.src || "/placeholder.svg"} alt="Eclipse" className="w-full h-full" />
-            </motion.div>
-            <div className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              <img src={group.src || "/placeholder.svg"} alt="Group" className="w-full h-full" />
-            </div>
+    <header className="bg-white shadow-sm">
+      <nav className="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8" aria-label="Global">
+        <div className="flex lg:flex-1">
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Dar Shefaa & Sheva AI</span>
+            <img className="w-auto h-8" src="/logo.svg" alt="Logo" />
           </Link>
+        </div>
+        <div className="flex lg:hidden">
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <span className="sr-only">Open main menu</span>
+            <Menu className="w-6 h-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="hidden lg:flex lg:gap-x-12">
+          {navigation.map((item) => (
+            <Link
+              key={item.route}
+              href={item.route}
+              className={`text-sm font-semibold leading-6 ${
+                pathname === item.route ? "text-blue-600" : "text-gray-900"
+              }`}
+            >
+              {item.route === "/" ? "Accueil" : item.route.slice(1)}
+            </Link>
+          ))}
+        </div>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <Link href="/boutique" className="text-sm font-semibold leading-6 text-gray-900">
+            Boutique <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
+      </nav>
+      <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
+    </header>
+  )
+}
 
-          <div className={`hidden space-x-8 md:flex ${isHeroSection ? "text-blue-800" : "text-white"}`}>
-            {navigation.map((item) => (
-              <div
-                key={item.route}
-                className="relative"
-                onMouseEnter={() => setActiveDropdown(item.route)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link href={item.route} className="flex items-center transition duration-300 hover:text-green-400">
-                  {item.route.slice(1) || "Accueil"}
-                  {item.sections.length > 0 && <ChevronDown className="w-4 h-4 ml-1" />}
+function MobileMenu({ open, setOpen }) {
+  return (
+    <motion.div
+      className={`lg:hidden ${open ? "fixed inset-0 z-50" : "hidden"}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: open ? 1 : 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+      <motion.div
+        className="fixed inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+        initial={{ x: "100%" }}
+        animate={{ x: open ? 0 : "100%" }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="flex items-center justify-between">
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Dar Shefaa & Sheva AI</span>
+            <img className="w-auto h-8" src="/logo.svg" alt="Logo" />
+          </Link>
+          <button type="button" className="-m-2.5 rounded-md p-2.5 text-gray-700" onClick={() => setOpen(false)}>
+            <span className="sr-only">Close menu</span>
+            <X className="w-6 h-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="flow-root mt-6">
+          <div className="-my-6 divide-y divide-gray-500/10">
+            <div className="py-6 space-y-2">
+              {navigation.map((item) => (
+                <Link
+                  key={item.route}
+                  href={item.route}
+                  className="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.route === "/" ? "Accueil" : item.route.slice(1)}
                 </Link>
-                {activeDropdown === item.route && item.sections.length > 0 && (
-                  <div className="absolute left-0 p-2 mt-2 space-y-2 bg-white rounded-md shadow-lg">
-                    {item.sections.map((section) => (
-                      <Link
-                        key={section.id}
-                        href={`${item.route}#${section.id}`}
-                        className="block px-4 py-2 text-sm text-gray-700 transition duration-300 hover:bg-green-100"
-                      >
-                        {section.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? <X size={24} /> : <Menu size={24} />}</button>
+              ))}
+            </div>
+            <div className="py-6">
+              <Link
+                href="/boutique"
+                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                onClick={() => setOpen(false)}
+              >
+                Boutique
+              </Link>
+            </div>
           </div>
         </div>
-
-        {isOpen && (
-          <div className="mt-4 space-y-4 md:hidden">
-            {navigation.map((item) => (
-              <div key={item.route}>
-                <Link href={item.route} className="block transition duration-300 hover:text-green-400">
-                  {item.route.slice(1) || "Accueil"}
-                </Link>
-                {item.sections.length > 0 && (
-                  <div className="mt-2 ml-4 space-y-2">
-                    {item.sections.map((section) => (
-                      <Link
-                        key={section.id}
-                        href={`${item.route}#${section.id}`}
-                        className="block text-sm text-gray-600 transition duration-300 hover:text-green-400"
-                      >
-                        {section.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </nav>
-    </header>
+      </motion.div>
+    </motion.div>
   )
 }
 

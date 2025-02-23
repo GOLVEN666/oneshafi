@@ -1,53 +1,80 @@
 // components/Footer.tsx
 
-import Link from 'next/link'
-import { Facebook, Twitter, LinkedinIcon as LinkedIn } from 'lucide-react'
+import Link from "next/link"
+import { footerNavigation } from "@/lib/constant"
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="py-12 text-white bg-gray-800">
-      <div className="container px-6 mx-auto">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Company</h3>
-            <ul className="space-y-2">
-              <li><Link href="/about" className="transition duration-300 hover:text-green-400">About Us</Link></li>
-              <li><Link href="/careers" className="transition duration-300 hover:text-green-400">Careers</Link></li>
-              <li><Link href="/contact" className="transition duration-300 hover:text-green-400">Contact</Link></li>
-            </ul>
+    <footer className="bg-white" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" className="sr-only">
+        Footer
+      </h2>
+      <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+          <div className="space-y-8 xl:col-span-1">
+            <img className="h-10" src="/logo.svg" alt="Dar Shefaa & Sheva AI" />
+            <p className="text-base text-gray-500">
+              Combinant la sagesse ancestrale et l'innovation technologique pour votre santé.
+            </p>
+            <div className="flex space-x-6">
+              {footerNavigation.social.map((item) => (
+                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="w-6 h-6" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Technology</h3>
-            <ul className="space-y-2">
-              <li><Link href="/forager" className="transition duration-300 hover:text-green-400">Forager AI</Link></li>
-              <li><Link href="/research" className="transition duration-300 hover:text-green-400">Research</Link></li>
-              <li><Link href="/patents" className="transition duration-300 hover:text-green-400">Patents</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Resources</h3>
-            <ul className="space-y-2">
-              <li><Link href="/blog" className="transition duration-300 hover:text-green-400">Blog</Link></li>
-              <li><Link href="/press" className="transition duration-300 hover:text-green-400">Press Releases</Link></li>
-              <li><Link href="/events" className="transition duration-300 hover:text-green-400">Events</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Connect</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="transition duration-300 hover:text-green-400"><Facebook /></a>
-              <a href="#" className="transition duration-300 hover:text-green-400"><Twitter /></a>
-              <a href="#" className="transition duration-300 hover:text-green-400"><LinkedIn /></a>
+          <div className="grid grid-cols-2 gap-8 mt-12 xl:mt-0 xl:col-span-2">
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">Produits</h3>
+                <ul role="list" className="mt-4 space-y-4">
+                  {footerNavigation.products.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-12 md:mt-0">
+                <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">Entreprise</h3>
+                <ul role="list" className="mt-4 space-y-4">
+                  {footerNavigation.company.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">Légal</h3>
+                <ul role="list" className="mt-4 space-y-4">
+                  {footerNavigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        <div className="pt-8 mt-8 text-center border-t border-gray-700">
-          <p>&copy; 2023 BioActive. All rights reserved.</p>
+        <div className="pt-8 mt-12 border-t border-gray-200">
+          <p className="text-base text-gray-400 xl:text-center">
+            &copy; {new Date().getFullYear()} Dar Shefaa & Sheva AI. Tous droits réservés.
+          </p>
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer
 
