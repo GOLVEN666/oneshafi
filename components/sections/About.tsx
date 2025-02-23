@@ -1,47 +1,31 @@
 "use client"
-
-import { useEffect } from "react"
-import { motion, useAnimation } from "framer-motion"
+import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import Image from "next/image"
 
 const About = () => {
-  const controls = useAnimation()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible")
-    }
-  }, [controls, inView])
-
-  const variants = {
-    visible: { opacity: 1, scale: 1, y: 0 },
-    hidden: { opacity: 0, scale: 0.8, y: 50 },
-  }
-
   return (
-    <section ref={ref} className="py-20 bg-white overflow-hidden">
+    <section id="about" ref={ref} className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center">
+        <div className="flex flex-col lg:flex-row items-center">
           <motion.div
-            animate={controls}
-            initial="hidden"
-            variants={variants}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:w-1/2 mb-8 md:mb-0"
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="lg:w-1/2 mb-12 lg:mb-0"
           >
-            <Image src="/about-image.jpg" alt="About Us" width={500} height={500} className="rounded-lg shadow-lg" />
+            <Image src="/about-image.jpg" alt="About Us" width={600} height={800} className="rounded-lg shadow-xl" />
           </motion.div>
           <motion.div
-            animate={controls}
-            initial="hidden"
-            variants={variants}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="md:w-1/2 md:pl-12"
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:w-1/2 lg:pl-12"
           >
             <h2 className="text-4xl font-bold mb-6">About Us</h2>
             <p className="text-gray-600 mb-6">

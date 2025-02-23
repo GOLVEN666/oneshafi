@@ -49,7 +49,6 @@ const TeamMemberCard = ({ name, role, image, linkedin, twitter }) => {
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-lg shadow-md text-center"
     >
-      duration: 0.5}} className="bg-white p-6 rounded-lg shadow-md text-center" >
       <Image
         src={image || "/placeholder.svg"}
         alt={name}
@@ -73,7 +72,7 @@ const TeamMemberCard = ({ name, role, image, linkedin, twitter }) => {
 
 const Team = () => {
   return (
-    <section className="py-20 bg-white">
+    <section id="team" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -114,26 +114,26 @@ function MobileMenu({ open, setOpen }) {
   )
 }
 
-export const SideNavbar = ({ route }: { route: string }) => {
-  const currentNavItem = navigation.find((item) => item.route === route)
-  const sections = currentNavItem?.sections || []
 
+export const SideNavbar = ({ route }: { route: string }) => {
+  const currentNavItem = navigation.find((item) => item.route === route);
+  const sections = currentNavItem?.sections || [];
   const activeSection = useScrollSpy(
     sections.map((s) => s.id),
-    50,
-  )
+    { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
+  );
 
   const handleDotClick = (id: string) => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" })
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }
+  };
 
-  if (sections.length === 0) return null
+  if (sections.length === 0) return null;
 
   return (
-    <div className="fixed z-50 hidden -translate-y-1/2 top-1/2 left-8 lg:block">
+    <div className="fixed z-50 hidden transform -translate-y-1/2 top-1/2 left-8 lg:block">
       <div className="flex flex-col items-center space-y-4">
         <div className="relative h-[200px]">
           <div className="absolute w-px h-full transform -translate-x-1/2 bg-gray-300 left-1/2" />
@@ -153,7 +153,7 @@ export const SideNavbar = ({ route }: { route: string }) => {
                 onClick={() => handleDotClick(id)}
               >
                 <motion.div
-                  className={`w-3 h-3 rounded-full ${activeSection === id ? "bg-green-500" : "bg-gray-400"}`}
+                  className={`w-3 h-3 rounded-full ${activeSection === id ? "bg-blue-500" : "bg-gray-400"}`}
                   layoutId="activeDot"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
@@ -161,13 +161,13 @@ export const SideNavbar = ({ route }: { route: string }) => {
               <AnimatePresence>
                 {activeSection === id && (
                   <motion.span
-                    className="absolute text-sm text-green-600 -translate-y-1/2 left-8 top-1/2 whitespace-nowrap"
+                    className="absolute text-sm text-blue-600 whitespace-pre-wrap transform -translate-y-1/2 left-2 top-1/2"
+                    style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {label}
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -176,6 +176,5 @@ export const SideNavbar = ({ route }: { route: string }) => {
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};

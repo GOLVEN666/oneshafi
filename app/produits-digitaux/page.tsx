@@ -1,98 +1,127 @@
-// app/produits-digitaux/page.tsx
-
 "use client"
 
 import PageLayout from "@/components/page-layout"
-import { motion } from "framer-motion"
 import Image from "next/image"
-import Link from "next/link"
+import { motion } from "framer-motion"
 
-const digitalProducts = [
+const products = [
   {
+    id: "agent-laboratory",
     name: "Agent Laboratory",
-    description: "Recherche automatisée pour la santé",
-    href: "/produits-digitaux/agent-laboratory",
-    imageSrc: "/agent-laboratory.jpg",
+    description:
+      "Solution d'IA avancée qui automatise la recherche en santé. Effectue des revues de littérature, génère du code d'apprentissage automatique et rédige des rapports.",
+    features: [
+      "Revue de littérature automatisée",
+      "Génération de code ML",
+      "Rédaction de rapports",
+      "Analyse de données multi-sources",
+    ],
+    image: "/placeholder.svg",
   },
   {
+    id: "healthrag",
     name: "HealthRAG",
-    description: "IA sécurisée pour la santé",
-    href: "/produits-digitaux/healthrag",
-    imageSrc: "/healthrag.jpg",
+    description:
+      "Solution d'IA sécurisée conçue spécifiquement pour le secteur de la santé. Utilise des techniques avancées de traitement du langage naturel pour analyser et extraire des informations pertinentes à partir de vastes ensembles de données médicales.",
+    features: [
+      "Recherche hybride avancée",
+      "Protection des données conforme aux normes RGPD",
+      "Support multilingue",
+      "Intégration facile avec les systèmes existants",
+    ],
+    image: "/placeholder.svg",
   },
   {
+    id: "medivision",
     name: "Medivision",
-    description: "IA pour l'imagerie médicale", 
-    href: "/produits-digitaux/medivision",
-    imageSrc: "/medivision.jpg",
+    description:
+      "Utilise l'IA de pointe pour améliorer l'analyse d'images médicales. Aide les professionnels de santé à détecter précocement les anomalies et à améliorer la précision des diagnostics.",
+    features: [
+      "Détection précoce des anomalies",
+      "Amélioration de la qualité d'image",
+      "Analyse automatisée des radiographies, IRM et scanners",
+      "Intégration avec les systèmes PACS existants",
+    ],
+    image: "/placeholder.svg",
   },
   {
+    id: "predicthealth",
     name: "PredictHealth",
-    description: "IA prédictive pour la santé",
-    href: "/produits-digitaux/predicthealth",
-    imageSrc: "/predicthealth.jpg",
+    description:
+      "Utilise des algorithmes d'IA avancés pour prédire les risques de santé et optimiser les ressources médicales. Aide les professionnels de santé à prendre des décisions éclairées et à améliorer les résultats pour les patients.",
+    features: [
+      "Calcul de scores de risque personnalisés",
+      "Prédictions dynamiques basées sur les données en temps réel",
+      "Optimisation des ressources hospitalières",
+      "Intégration avec les dossiers médicaux électroniques",
+    ],
+    image: "/placeholder.svg",
   },
   {
+    id: "tailorai",
     name: "TailorAI",
-    description: "Solutions d'IA sur mesure",
-    href: "/produits-digitaux/tailorai",
-    imageSrc: "/tailorai.jpg",
+    description:
+      "Offre des solutions d'IA personnalisées pour répondre aux besoins spécifiques de votre organisation dans le domaine de la santé. Notre équipe d'experts travaille en étroite collaboration avec vous pour développer des solutions innovantes et efficaces.",
+    features: [
+      "Développement d'IA sur mesure",
+      "Intégration de solutions existantes",
+      "Formation et support continu",
+      "Optimisation des processus grâce à l'IA",
+    ],
+    image: "/placeholder.svg",
   },
 ]
 
-export default function DigitalProducts() {
+const ProductSection = ({ product, index }) => {
+  const isOdd = index % 2 !== 0
+  return (
+    <motion.section
+      id={product.id}
+      className="mb-16"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <div className={`flex flex-col ${isOdd ? "md:flex-row-reverse" : "md:flex-row"}`}>
+        <div className="md:w-1/2 mb-4 md:mb-0 md:px-4">
+          <Image
+            src={product.image || "/placeholder.svg"}
+            alt={product.name}
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="md:w-1/2 md:px-4">
+        <h2 className="text-3xl font-semibold mb-4">{product.name}</h2>
+          <p className="mb-4">{product.description}</p>
+          <h3 className="text-xl font-semibold mb-2">Fonctionnalités clés :</h3>
+          <ul className="list-disc list-inside">
+            {product.features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+          <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
+            En savoir plus
+          </button>
+        </div>
+      </div>
+    </motion.section>
+  )
+}
+
+const DigitalProductsPage = () => {
   return (
     <PageLayout route="/produits-digitaux">
-      <div className="bg-white">
-        <div className="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Nos Produits Numériques</h1>
-          <p className="mt-4 text-xl text-gray-500">
-            Découvrez nos solutions d'IA innovantes pour révolutionner le domaine de la santé.
-          </p>
-
-          <div className="grid grid-cols-1 mt-10 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-            {digitalProducts.map((product) => (
-              <motion.div
-                key={product.name}
-                className="relative group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="w-full overflow-hidden bg-gray-200 rounded-md min-h-80 aspect-w-1 aspect-h-1 group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                  <Image
-                    src={product.imageSrc || "/placeholder.svg"}
-                    alt={product.name}
-                    className="object-cover object-center w-full h-full lg:w-full lg:h-full"
-                    width={500}
-                    height={500}
-                  />
-                </div>
-                <div className="flex justify-between mt-4">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <Link href={product.href}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.name}
-                      </Link>
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.description}</p>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <Link
-                    href={product.href}
-                    className="relative z-10 flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
-                  >
-                    En savoir plus
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold mb-8">Produits Digitaux</h1>
+        {products.map((product, index) => (
+          <ProductSection key={product.id} product={product} index={index} />
+        ))}
       </div>
     </PageLayout>
   )
 }
+
+export default DigitalProductsPage
 

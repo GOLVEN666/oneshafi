@@ -1,7 +1,8 @@
 "use client"
 import { motion } from "framer-motion"
-import { FaLeaf, FaMicrochip, FaFlask, FaUserMd, FaChartLine } from "react-icons/fa"
 import { useInView } from "react-intersection-observer"
+import Image from "next/image"
+import { FaLeaf, FaMicrochip, FaFlask, FaUserMd, FaChartLine } from "react-icons/fa"
 
 const services = [
   {
@@ -32,35 +33,54 @@ const services = [
 ]
 
 const ServiceCard = ({ icon: Icon, title, description }) => {
+  return (
+    <div className="flex items-start mb-6">
+      <Icon className="text-3xl text-blue-600 mr-4 mt-1" />
+      <div>
+        <h3 className="text-xl font-semibold mb-2">{title}</h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
+    </div>
+  )
+}
+
+const Services = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
-      className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-    >
-      <Icon className="text-4xl text-blue-600 mb-4" />
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </motion.div>
-  )
-}
-
-const Services = () => {
-  return (
-    <section className="py-20 bg-gray-100">
+    <section id="services" ref={ref} className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
-          ))}
+        <div className="flex flex-col lg:flex-row items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="lg:w-1/2 mb-12 lg:mb-0"
+          >
+            <Image
+              src="/services-image.jpg"
+              alt="Our Services"
+              width={600}
+              height={800}
+              className="rounded-lg shadow-xl"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:w-1/2 lg:pl-12"
+          >
+            <h2 className="text-4xl font-bold mb-8">Our Services</h2>
+            <div>
+              {services.map((service, index) => (
+                <ServiceCard key={index} {...service} />
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
