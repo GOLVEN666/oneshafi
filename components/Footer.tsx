@@ -1,19 +1,42 @@
 // components/Footer.tsx
 
+"use client"
 import Link from "next/link"
 import { footerNavigation } from "@/lib/constant"
-
+import { motion } from "framer-motion"
+import eclipse from "@/assets/logo/eclipse.svg"
+import group from "@/assets/logo/group.svg"
 export default function Footer() {
   return (
-    <footer className="bg-white" aria-labelledby="footer-heading">
+    <footer id="footer" className="bg-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-            <img className="h-10" src="/logo.svg" alt="Dar Shefaa & Sheva AI" />
-            <p className="text-base text-gray-500">
+          <Link href="/" className="relative w-16 h-16">
+            <motion.div
+              className="absolute w-full h-full"
+              animate={{
+                rotate: 360,
+              }}
+              transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+            >
+              <img
+                src={eclipse.src || "/placeholder.svg"}
+                alt="Eclipse"
+                className="w-full h-full"
+              />
+            </motion.div>
+            <div className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+              <img
+                src={group.src || "/placeholder.svg"}
+                alt="Group"
+                className="w-full h-full"
+              />
+            </div>
+          </Link>            <p className="text-base text-gray-500">
               Combinant la sagesse ancestrale et l'innovation technologique pour votre santé.
             </p>
             <div className="flex space-x-6">
