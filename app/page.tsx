@@ -1,129 +1,41 @@
 // app/page.tsx
 
-'use client'
+"use client"
 
-import { useEffect } from 'react'
-import { motion } from 'framer-motion'
-import Header from '@/components/Header'
-import Hero from '@/components/Hero'
-import WhatWeDo from '@/components/WhatWeDo'
-import Innovation from '@/components/Innovation'
-import Process from '@/components/Process'
-import Testimonials from '@/components/Testimonials'
-import Research from '@/components/Research'
-import Partners from '@/components/Partners'
-import Impact from '@/components/Impact'
-import Forager from '@/components/Forager'
-import News from '@/components/News'
-import Footer from '@/components/Footer'
-import ScrollIndicator from '@/components/ScrollIndicator'
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
-}
+import PageLayout from "@/components/page-layout"
+import { motion } from "framer-motion"
 
 export default function Home() {
-  
-
   return (
-    <main className="min-h-screen pb-20 bg-white">
-      <motion.section 
-        id="hero"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
+    <PageLayout route="/">
+      <motion.div id="hero"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center"
       >
-        <Hero />
-      </motion.section>
-      <motion.section 
-        id="what-we-do"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <WhatWeDo />
-      </motion.section>
-      <motion.section 
-        id="innovation"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Innovation />
-      </motion.section>
-      <motion.section 
-        id="process"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Process />
-      </motion.section>
-      <motion.section 
-        id="testimonials"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Testimonials />
-      </motion.section>
-      <motion.section 
-        id="research"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Research />
-      </motion.section>
-      <motion.section 
-        id="partners"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Partners />
-      </motion.section>
-      <motion.section 
-        id="impact"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Impact />
-      </motion.section>
-      <motion.section 
-        id="forager"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <Forager />
-      </motion.section>
-      <motion.section 
-        id="news"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <News />
-      </motion.section>
-      <Footer />
-    </main>
+        <h1 className="mb-6 text-4xl font-bold text-blue-800">Bienvenue chez Dar Shefaa & Sheva AI</h1>
+        <p className="mb-8 text-xl text-green-700">
+          Découvrez la puissance de la nature et de l'intelligence artificielle pour votre santé
+        </p>
+        <div className="flex justify-center space-x-4">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 text-white bg-blue-600 rounded-full hover:bg-blue-700"
+          >
+            Notre Histoire
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 text-white bg-green-600 rounded-full hover:bg-green-700"
+          >
+            Notre Boutique
+          </motion.button>
+        </div>
+      </motion.div>
+    </PageLayout>
   )
 }
 
