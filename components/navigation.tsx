@@ -8,11 +8,20 @@ import { Menu, X, ChevronDown } from "lucide-react"
 import { useScrollSpy } from "@/hooks/use-scroll-spy"
 import { navigation } from "@/lib/constant"
 import eclipse from "@/assets/logo/eclipse.svg"
-import group from "@/assets/logo/group.svg"
+import logoGif from "@/assets/logo/oneshafi.gif"
 import { usePathname } from "next/navigation"
-export function Navbar() {
+
+interface Category {
+  content: {
+    title: string;
+  };
+}
+
+export function Navbar({ categories = [] }: { categories?: Category[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHeroActive, setIsHeroActive] = useState(false); // Track if #hero is active
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const pathname = usePathname();
   const currentRoute = navigation.find((item) => item.route === pathname) || navigation[0];
 
@@ -40,7 +49,9 @@ export function Navbar() {
         <div className="flex lg:flex-1">
         <Link href="/" className="relative w-16 h-16">
             <motion.div
-              className="absolute w-full h-full"
+              className={`absolute w-[150%] h-[150%] -left-[25%] -top-[25%] ${
+                isHeroActive ? "brightness-0 invert" : ""
+              }`}
               animate={{
                 rotate: 360,
               }}
@@ -52,11 +63,19 @@ export function Navbar() {
                 className="w-full h-full"
               />
             </motion.div>
-            <div className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+            <div 
+              className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <img
-                src={group.src || "/placeholder.svg"}
-                alt="Group"
-                className="w-full h-full"
+                src={logoGif.src || "/placeholder.svg"}
+                alt="Logo Animation"
+                className={`w-full h-full ${isHeroActive ? "brightness-0 invert" : ""}`}
+                style={{
+                  animationPlayState: isHovered ? 'running' : 'paused',
+                  animationDelay: isHovered ? '0s' : '-999s' // This tricks the GIF to show first frame when paused
+                }}
               />
             </div>
           </Link>
