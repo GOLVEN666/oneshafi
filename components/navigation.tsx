@@ -89,12 +89,21 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
+                {/* White glow background when navbar is transparent */}
+                <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${
+                  isHeroActive && !isScrolled ? "opacity-100" : "opacity-0"
+                }`} 
+                style={{
+                  background: "radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(255,255,255,0) 70%)",
+                  transform: "scale(2)",
+                  filter: "blur(6px)",
+                  zIndex: -1
+                }}/>
+                
                 <img
                   src={logoGif.src}
                   alt="Logo Animation"
-                  className={`w-full h-full transition-all duration-300 ${
-                    isHeroActive && !isScrolled ? "brightness-0 invert" : ""
-                  }`}
+                  className="w-full h-full transition-all duration-300 relative z-10"
                   style={{
                     animationPlayState: isHovered ? "running" : "paused",
                     animationDelay: isHovered ? "0s" : "-999s",
