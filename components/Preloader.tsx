@@ -12,7 +12,7 @@ export default function Preloader() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 3000) // Adjust the duration as needed
+    }, 1400) // Adjust the duration as needed
 
     return () => clearTimeout(timer)
   }, [])

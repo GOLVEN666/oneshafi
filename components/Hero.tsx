@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger)
 const Hero = () => {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const subheadingRef = useRef<HTMLParagraphElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (headingRef.current && subheadingRef.current) {
@@ -41,35 +42,50 @@ const Hero = () => {
   }, [])
 
   return (
-    <section className="relative flex items-center min-h-screen">
-      <Image
-        src="/placeholder.svg?height=1080&width=1920&text=Green+Leaf+Texture"
-        alt="Nature Background"
-        layout="fill"
-        objectFit="cover"
-        className="z-0"
+    <section className="relative flex items-center min-h-screen overflow-hidden">
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 object-cover w-full h-full"
+        style={{ zIndex: 0 }}
+      >
+        <source
+          src="https://videos.ctfassets.net/oz7i9nkwgj2z/4pxSlK9wxRjmk0UAWAxZI0/30408ef32e09a5ef88079f0e7e412113/Home_-_Intro_Video.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Gradient Overlay */}
+      <div 
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/20 to-black/40"
+        style={{ backdropFilter: 'brightness(0.8)' }}
       />
-      <div className="absolute inset-0 z-10 bg-black/20"></div>
-      <div className="container relative z-20 px-6 mx-auto">
-        <div className="max-w-3xl" >
+
+      <div className="container relative z-[2] px-6 mx-auto">
+        <div className="max-w-3xl">
           <motion.span
-            className="block mb-2 text-lg font-semibold text-green-600"
+            className="block mb-2 text-lg font-semibold text-green-400"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            BRIGHTSEED
+            ONESHAFI
           </motion.span>
-          <h1 ref={headingRef} className="mb-6 text-6xl font-bold text-gray-800">
+          <h1 ref={headingRef} className="mb-6 text-6xl font-bold text-white">
             We Know{' '}
-            <span className="block italic text-green-700 text-7xl">Nature</span>
+            <span className="block italic text-green-400 text-7xl">Nature</span>
           </h1>
-          <p ref={subheadingRef} className="max-w-2xl mb-8 text-xl text-gray-600">
-            Brightseed is a pioneer in biosciences and artificial intelligence that finds compounds in
+          <p ref={subheadingRef} className="max-w-2xl mb-8 text-xl text-gray-200">
+            oneshafi is a pioneer in biosciences and artificial intelligence that finds compounds in
             nature that can help restore human health.
           </p>
           <motion.button
-            className="flex items-center font-semibold text-green-700 transition-colors group hover:text-green-800"
+            className="flex items-center font-semibold text-green-400 transition-colors group hover:text-green-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -88,8 +104,9 @@ const Hero = () => {
           </motion.button>
         </div>
       </div>
+
       <motion.div
-        className="fixed z-50 px-4 py-2 text-sm font-semibold text-green-700 rounded-full bottom-8 right-8 bg-white/90"
+        className="fixed z-[5] px-4 py-2 text-sm font-semibold text-green-400 rounded-full bottom-8 right-8 bg-black/80 backdrop-blur-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}

@@ -18,7 +18,9 @@ export default function PageLayout({ children, route }: PageLayoutProps) {
       <main className="flex-grow ">
         <div className="relative">
           {showSideNavbar && <SideNavbar route={route} />}
-          {children}
+          <div className="lg:pl-24">
+            {children}
+          </div>
         </div>
       </main>
       <Footer />
