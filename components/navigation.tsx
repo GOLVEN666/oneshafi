@@ -42,111 +42,130 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
     setIsHeroActive(activeSection === "hero")
   }, [activeSection])
 
+  // Add this effect to prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
+
   return (
-    <header
-      className={`sticky top-0 left-0 right-0 z-[1001] transition-all duration-300 
-      ${isScrolled 
-        ? "bg-white/90 backdrop-blur-md shadow-lg" 
-        : isHeroActive 
-          ? "bg-transparent" 
-          : "bg-white shadow-sm"}`}
-    >
-      <nav className="flex items-center justify-between p-4 mx-auto max-w-7xl lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="relative w-16 h-16 group">
-            <motion.div
-              className={`absolute w-[150%] h-[150%] -left-[25%] -top-[25%] transition-all duration-300
-                ${isHeroActive && !isScrolled ? "brightness-0 invert" : ""}`}
-              animate={{
-                rotate: 360,
-              }}
-              transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "linear" }}
-            >
-              <img src={eclipse.src} alt="Eclipse" className="w-full h-full" />
-            </motion.div>
-            <div
-              className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 group-hover:scale-110 top-1/2 left-1/2"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <img
-                src={logoGif.src}
-                alt="Logo Animation"
-                className={`w-full h-full transition-all duration-300 ${
-                  isHeroActive && !isScrolled ? "brightness-0 invert" : ""
-                }`}
-                style={{
-                  animationPlayState: isHovered ? "running" : "paused",
-                  animationDelay: isHovered ? "0s" : "-999s",
+    <>
+      {/* Separate the mobile menu from the header to avoid z-index stacking context issues */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
+        )}
+      </AnimatePresence>
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 h-[80px] transition-all duration-300 
+        ${isScrolled 
+          ? "bg-white/90 backdrop-blur-md shadow-lg" 
+          : isHeroActive 
+            ? "bg-transparent" 
+            : "bg-white shadow-sm"}`}
+      >
+        <nav className="flex items-center justify-between h-full p-4 mx-auto max-w-7xl lg:px-8" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <Link href="/" className="relative w-16 h-16 group">
+              <motion.div
+                className={`absolute w-[150%] h-[150%] -left-[25%] -top-[25%] transition-all duration-300
+                  ${isHeroActive && !isScrolled ? "brightness-0 invert" : ""}`}
+                animate={{
+                  rotate: 360,
                 }}
-              />
-            </div>
-          </Link>
-        </div>
-
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 transition-colors duration-300
-              ${isHeroActive && !isScrolled ? "text-white" : "text-gray-700"}`}
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-        </div>
-
-        <div
-          className={`hidden lg:flex lg:gap-x-12 text-sm font-semibold leading-6 transition-colors duration-300
-            ${isHeroActive && !isScrolled ? "text-white" : "text-gray-900"}`}
-        >
-          {navigation.map((item) => {
-            const displayName =
-              item.route === "/"
-                ? "Accueil"
-                : item.route
-                    .slice(1)
-                    .split("-")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")
-            return (
-              <Link
-                key={item.route}
-                href={item.route}
-                className={`relative group ${pathname === item.route ? "text-green-600" : ""}`}
+                transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "linear" }}
               >
-                {displayName}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            )
-          })}
-        </div>
+                <img src={eclipse.src} alt="Eclipse" className="w-full h-full" />
+              </motion.div>
+              <div
+                className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 group-hover:scale-110 top-1/2 left-1/2"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <img
+                  src={logoGif.src}
+                  alt="Logo Animation"
+                  className={`w-full h-full transition-all duration-300 ${
+                    isHeroActive && !isScrolled ? "brightness-0 invert" : ""
+                  }`}
+                  style={{
+                    animationPlayState: isHovered ? "running" : "paused",
+                    animationDelay: isHovered ? "0s" : "-999s",
+                  }}
+                />
+              </div>
+            </Link>
+          </div>
 
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            href="/boutique"
-            className={`relative group px-4 py-2 rounded-full border-2 transition-all duration-300 flex items-center gap-2
-              ${isHeroActive && !isScrolled 
-                ? "text-white border-white hover:bg-white hover:text-gray-900" 
-                : "text-gray-900 border-gray-900 hover:bg-gray-900 hover:text-white"}`}
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 transition-colors duration-300
+                ${isHeroActive && !isScrolled ? "text-white" : "text-gray-700"}`}
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            className={`hidden lg:flex lg:gap-x-12 text-sm font-semibold leading-6 transition-colors duration-300
+              ${isHeroActive && !isScrolled ? "text-white" : "text-gray-900"}`}
           >
-            <span>Boutique</span>
-            <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
-          </Link>
-        </div>
-      </nav>
+            {navigation.map((item) => {
+              const displayName =
+                item.route === "/"
+                  ? "Accueil"
+                  : item.route
+                      .slice(1)
+                      .split("-")
+                      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                      .join(" ")
+              return (
+                <Link
+                  key={item.route}
+                  href={item.route}
+                  className={`relative group ${pathname === item.route ? "text-green-600" : ""}`}
+                >
+                  {displayName}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              )
+            })}
+          </div>
 
-      <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
-    </header>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link
+              href="/boutique"
+              className={`relative group px-4 py-2 rounded-full border-2 transition-all duration-300 flex items-center gap-2
+                ${isHeroActive && !isScrolled 
+                  ? "text-white border-white hover:bg-white hover:text-gray-900" 
+                  : "text-gray-900 border-gray-900 hover:bg-gray-900 hover:text-white"}`}
+            >
+              <span>Boutique</span>
+              <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </Link>
+          </div>
+        </nav>
+      </header>
+    </>
   )
 }
 
@@ -156,33 +175,35 @@ interface MobileMenuProps {
 }
 
 function MobileMenu({ open, setOpen }: MobileMenuProps) {
-  if (!open) return null; // Only render when open
-
   return (
-    <div className="fixed inset-0 z-[1002] lg:hidden">
-      {/* Dark overlay */}
-      <div 
+    // Move the mobile menu outside the header and give it a higher z-index
+    <div className="fixed inset-0 z-[9999] isolate"> {/* Use isolate to create new stacking context */}
+      {/* Overlay */}
+      <motion.div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         onClick={() => setOpen(false)}
       />
-      
-      {/* Menu panel */}
-      <div 
-        className={`
-          fixed top-0 right-0 h-full w-[300px] bg-white shadow-lg
-          transform transition-transform duration-300 ease-in-out
-          ${open ? 'translate-x-0' : 'translate-x-full'}
-        `}
+
+      {/* Menu Panel */}
+      <motion.div
+        className="fixed inset-y-0 right-0 w-[300px] bg-white shadow-xl overflow-y-auto"
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "spring", damping: 20 }}
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
             <Link href="/" className="-m-1.5 p-1.5" onClick={() => setOpen(false)}>
               <span className="sr-only">Dar Shefaa & Sheva AI</span>
-              <img className="w-auto h-8" src="/logo.svg" alt="Logo" />
+              <img className="w-auto h-8" src={logoGif.src} alt="Logo" />
             </Link>
             <button
               onClick={() => setOpen(false)}
-              className="p-2 text-gray-600 hover:text-gray-900"
+              className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -204,7 +225,7 @@ function MobileMenu({ open, setOpen }: MobileMenuProps) {
                     <Link
                       key={item.route}
                       href={item.route}
-                      className="block px-4 py-2 text-gray-800 rounded-lg hover:bg-gray-100"
+                      className="block px-4 py-2 text-gray-800 rounded-lg hover:bg-gray-100 transition-colors"
                       onClick={() => setOpen(false)}
                     >
                       {displayName}
@@ -216,7 +237,7 @@ function MobileMenu({ open, setOpen }: MobileMenuProps) {
               <div className="mt-6 pt-6 border-t">
                 <Link
                   href="/boutique"
-                  className="flex items-center px-4 py-2 text-gray-800 rounded-lg hover:bg-gray-100"
+                  className="flex items-center px-4 py-2 text-gray-800 rounded-lg hover:bg-gray-100 transition-colors"
                   onClick={() => setOpen(false)}
                 >
                   <span>Boutique</span>
@@ -226,7 +247,7 @@ function MobileMenu({ open, setOpen }: MobileMenuProps) {
             </nav>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
@@ -250,7 +271,7 @@ export const SideNavbar = () => {
   if (sections.length === 0) return null;
 
   return (
-    <div className="fixed hidden lg:block z-[1000]" style={{ left: '2rem', top: '50%', transform: 'translateY(-50%)' }}>
+    <div className="fixed hidden lg:block" style={{ left: '2rem', top: '50%', transform: 'translateY(-50%)' }}>
       <div className="relative py-20">
         {/* Vertical line */}
         <div className="absolute left-[9px] top-0 bottom-0 w-[2px] bg-gray-200" />
