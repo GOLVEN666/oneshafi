@@ -15,7 +15,9 @@ export default function Footer() {
       <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-          <Link href="/" className="relative w-16 h-16">
+            <div className="flex items-center -mb-4 space-x-2">
+
+          <Link href="/" className="relative w-16 h-16 -ml-3">
             <motion.div
               className="absolute w-full h-full"
               animate={{
@@ -36,7 +38,10 @@ export default function Footer() {
                 className="w-full h-full"
               />
             </div>
-          </Link>            <p className="text-base text-gray-500">
+          </Link>            
+            <span className="font-bold">OneShafi </span>
+            </div>
+          <p className="text-base text-gray-500">
               Combinant la sagesse ancestrale et l'innovation technologique pour votre santé.
             </p>
             <div className="flex space-x-6">

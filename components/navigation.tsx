@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { X } from "lucide-react"
 import { useScrollSpy } from "@/hooks/use-scroll-spy"
 import { navigation } from "@/lib/constant"
 import eclipse from "@/assets/logo/eclipse.svg"
@@ -13,41 +13,38 @@ import { usePathname } from "next/navigation"
 
 interface Category {
   content: {
-    title: string;
-  };
+    title: string
+  }
 }
 
 export function Navbar({ categories = [] }: { categories?: Category[] }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isHeroActive, setIsHeroActive] = useState(false); // Track if #hero is active
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const pathname = usePathname();
-  const currentRoute = navigation.find((item) => item.route === pathname) || navigation[0];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isHeroActive, setIsHeroActive] = useState(false) // Track if #hero is active
+  const [isOpen, setIsOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const pathname = usePathname()
+  const currentRoute = navigation.find((item) => item.route === pathname) || navigation[0]
 
   // Use ScrollSpy to detect the active section
   const activeSection = useScrollSpy(
     currentRoute.sections.map((section) => section.id),
-    { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
-  );
+    { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
+  )
 
   // Update the state based on the active section
   useEffect(() => {
-    setIsHeroActive(activeSection === "hero");
-  }, [activeSection]);
+    setIsHeroActive(activeSection === "hero")
+  }, [activeSection])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-20 transition-all duration-300 ${
         isHeroActive ? "bg-transparent shadow-none" : "bg-white shadow-sm"
       }`}
     >
-      <nav
-        className="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8"
-        aria-label="Global"
-      >
+      <nav className="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-        <Link href="/" className="relative w-16 h-16">
+          <Link href="/" className="relative w-16 h-16">
             <motion.div
               className={`absolute w-[150%] h-[150%] -left-[25%] -top-[25%] ${
                 isHeroActive ? "brightness-0 invert" : ""
@@ -55,15 +52,11 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
               animate={{
                 rotate: 360,
               }}
-              transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+              transition={{ repeat: Number.POSITIVE_INFINITY, duration: 5, ease: "linear" }}
             >
-              <img
-                src={eclipse.src || "/placeholder.svg"}
-                alt="Eclipse"
-                className="w-full h-full"
-              />
+              <img src={eclipse.src || "/placeholder.svg"} alt="Eclipse" className="w-full h-full" />
             </motion.div>
-            <div 
+            <div
               className="absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -73,8 +66,8 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
                 alt="Logo Animation"
                 className={`w-full h-full ${isHeroActive ? "brightness-0 invert" : ""}`}
                 style={{
-                  animationPlayState: isHovered ? 'running' : 'paused',
-                  animationDelay: isHovered ? '0s' : '-999s' // This tricks the GIF to show first frame when paused
+                  animationPlayState: isHovered ? "running" : "paused",
+                  animationDelay: isHovered ? "0s" : "-999s", // This tricks the GIF to show first frame when paused
                 }}
               />
             </div>
@@ -106,22 +99,30 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
             isHeroActive ? "text-white" : "text-gray-900"
           }`}
         >
-          {navigation.map((item) => (
-            <Link
-              key={item.route}
-              href={item.route}
-              className={`${pathname === item.route ? "text-blue-600" : ""}`}
-            >
-              {item.route === "/" ? "Accueil" : item.route.slice(1)}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const displayName =
+              item.route === "/"
+                ? "Accueil"
+                : item.route
+                    .slice(1)
+                    .split("-")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ")
+            return (
+              <Link
+                key={item.route}
+                href={item.route}
+                className={`${pathname === item.route ? "text-blue-600" : ""} hover:text-blue-500 transition-colors`}
+              >
+                {displayName}
+              </Link>
+            )
+          })}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             href="/boutique"
-            className={`text-sm font-semibold leading-6 ${
-              isHeroActive ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-sm font-semibold leading-6 ${isHeroActive ? "text-white" : "text-gray-900"}`}
           >
             Boutique <span aria-hidden="true">&rarr;</span>
           </Link>
@@ -129,7 +130,7 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
       </nav>
       <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
     </header>
-  );
+  )
 }
 
 function MobileMenu({ open, setOpen }) {
@@ -160,16 +161,26 @@ function MobileMenu({ open, setOpen }) {
         <div className="flow-root mt-6">
           <div className="-my-6 divide-y divide-gray-500/10">
             <div className="py-6 space-y-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.route}
-                  href={item.route}
-                  className="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.route === "/" ? "Accueil" : item.route.slice(1)}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const displayName =
+                  item.route === "/"
+                    ? "Accueil"
+                    : item.route
+                        .slice(1)
+                        .split("-")
+                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(" ")
+                return (
+                  <Link
+                    key={item.route}
+                    href={item.route}
+                    className="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+                    onClick={() => setOpen(false)}
+                  >
+                    {displayName}
+                  </Link>
+                )
+              })}
             </div>
             <div className="py-6">
               <Link
@@ -187,23 +198,22 @@ function MobileMenu({ open, setOpen }) {
   )
 }
 
-
 export const SideNavbar = ({ route }: { route: string }) => {
-  const currentNavItem = navigation.find((item) => item.route === route);
-  const sections = currentNavItem?.sections || [];
+  const currentNavItem = navigation.find((item) => item.route === route)
+  const sections = currentNavItem?.sections || []
   const activeSection = useScrollSpy(
     sections.map((s) => s.id),
     { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
-  );
+  )
 
   const handleDotClick = (id: string) => {
-    const element = document.getElementById(id);
+    const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.scrollIntoView({ behavior: "smooth", block: "center" })
     }
-  };
- 
-  if (sections.length === 0) return null;
+  }
+
+  if (sections.length === 0) return null
 
   return (
     <div className="fixed z-50 hidden transform -translate-y-1/2 top-1/2 left-8 lg:block">
@@ -240,8 +250,7 @@ export const SideNavbar = ({ route }: { route: string }) => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.2 }}
-                  >
-                  </motion.span>
+                  ></motion.span>
                 )}
               </AnimatePresence>
             </motion.div>
@@ -249,5 +258,6 @@ export const SideNavbar = ({ route }: { route: string }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
+

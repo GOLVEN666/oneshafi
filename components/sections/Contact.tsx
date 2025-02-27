@@ -1,3 +1,5 @@
+// components/sections/Contact.tsx
+
 "use client"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
@@ -5,7 +7,7 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa"
 
 const ContactInfo = ({ icon: Icon, title, content }) => (
   <div className="flex items-center mb-6">
-    <Icon className="text-2xl text-blue-600 mr-4" />
+    <Icon className="mr-4 text-2xl text-blue-600" />
     <div>
       <h3 className="font-semibold">{title}</h3>
       <p className="text-gray-600">{content}</p>
@@ -21,14 +23,14 @@ const Contact = () => {
 
   return (
     <section id="contact" ref={ref} className="py-20 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Contact Us</h2>
+      <div className="container px-4 mx-auto">
+        <h2 className="mb-12 text-4xl font-bold text-center">Contact Us</h2>
         <div className="flex flex-col md:flex-row">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="md:w-1/2 mb-8 md:mb-0"
+            className="mb-8 md:w-1/2 md:mb-0"
           >
             <ContactInfo icon={FaEnvelope} title="Email" content="contact@darshefaa.com" />
             <ContactInfo icon={FaPhone} title="Phone" content="+212 123 456 789" />
@@ -42,7 +44,7 @@ const Contact = () => {
           >
             <form>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="name" className="block mb-2 font-semibold text-gray-700">
                   Name
                 </label>
                 <input
@@ -54,7 +56,7 @@ const Contact = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="email" className="block mb-2 font-semibold text-gray-700">
                   Email
                 </label>
                 <input
@@ -66,7 +68,7 @@ const Contact = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="message" className="block mb-2 font-semibold text-gray-700">
                   Message
                 </label>
                 <textarea
@@ -79,7 +81,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300"
+                className="px-6 py-3 font-semibold text-white transition duration-300 bg-blue-600 rounded-full hover:bg-blue-700"
               >
                 Send Message
               </button>

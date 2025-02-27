@@ -1,53 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@400;600;700&display=swap');
+/* app/globals.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-lora: 'Lora', serif;
-  --font-open-sans: 'Open Sans', sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
+  --color-primary: #234b4b;
+  --color-secondary: #92c0c8;
+  --color-accent: #9a7a3f;
 }
 
 body {
-  font-family: var(--font-open-sans);
-  @apply text-gray-800;
-  padding-bottom: 4rem;
+  font-family: "Raleway", sans-serif;
+  color: #234b4b;
+  background-color: #ffffff;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-lora);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
 }
 
-.writing-mode-vertical-rl {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+.btn-primary {
+  @apply bg-[#9A7A3F] text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition duration-300;
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+.btn-secondary {
+  @apply bg-[#92C0C8] text-[#234B4B] px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition duration-300;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+.section-padding {
+  @apply py-16 md:py-24;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.container {
+  @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
 }
 

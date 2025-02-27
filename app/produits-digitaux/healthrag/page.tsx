@@ -2,114 +2,155 @@
 
 "use client"
 
-import PageLayout from "@/components/page-layout"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
+import { Check, Shield, Globe, Zap } from "lucide-react"
 
 export default function HealthRAG() {
   return (
-    <PageLayout route="/produits-digitaux">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-        <h1 className="mb-6 text-4xl font-bold text-center text-blue-800">HealthRAG</h1>
-        <h2 className="mb-8 text-2xl text-center text-green-700">IA Sécurisée pour la Santé</h2>
-
-        <div className="flex flex-col items-center mb-12 md:flex-row">
-          <div className="mb-6 md:w-1/2 md:mb-0 md:mr-8">
-            <Image
-              src="/placeholder.svg?text=HealthRAG"
-              alt="HealthRAG"
-              width={500}
-              height={300}
-              className="rounded-lg"
-            />
-          </div>
-          <div className="md:w-1/2">
-            <h3 className="mb-4 text-xl font-semibold text-blue-700">Description du produit</h3>
-            <p className="mb-4 text-brown-600">
-              HealthRAG est une solution d'IA sécurisée conçue spécifiquement pour le secteur de la santé. Elle utilise
-              des techniques avancées de traitement du langage naturel pour analyser et extraire des informations
-              pertinentes à partir de vastes ensembles de données médicales.
+    <div>
+      {/* Hero Section */}
+      <section className="bg-[#234B4B] text-white py-20">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="mb-6 text-4xl font-bold md:text-6xl">HealthRAG</h1>
+            <p className="max-w-2xl mx-auto mb-8 text-xl">
+              Solution d'IA sécurisée conçue spécifiquement pour le secteur de la santé
             </p>
-            <h3 className="mb-4 text-xl font-semibold text-blue-700">Fonctionnalités clés</h3>
-            <ul className="mb-4 list-disc list-inside text-brown-600">
-              <li>Recherche hybride avancée</li>
-              <li>Protection des données conforme aux normes RGPD</li>
-              <li>Support multilingue</li>
-              <li>Intégration facile avec les systèmes existants</li>
-            </ul>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 text-white bg-green-600 rounded-full hover:bg-green-700"
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Product Details */}
+      <section className="bg-white section-padding">
+        <div className="container">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+              <Image
+                src="/placeholder.svg?text=HealthRAG"
+                alt="HealthRAG"
+                width={500}
+                height={500}
+                className="rounded-lg shadow-lg"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Demander une démo
-            </motion.button>
+              <h2 className="text-3xl font-bold mb-4 text-[#234B4B]">Découvrez HealthRAG</h2>
+              <p className="mb-6 text-[#234B4B]">
+                HealthRAG utilise des techniques avancées de traitement du langage naturel pour analyser et extraire des
+                informations pertinentes à partir de vastes ensembles de données médicales.
+              </p>
+              <ul className="mb-6 space-y-2">
+                {[
+                  "Recherche hybride avancée",
+                  "Protection des données conforme aux normes RGPD",
+                  "Support multilingue",
+                  "Intégration facile avec les systèmes existants",
+                ].map((feature, index) => (
+                  <li key={index} className="flex items-center text-[#234B4B]">
+                    <Check className="w-5 h-5 mr-2 text-[#9A7A3F]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link href="#" className="btn-primary">
+                Demander une démo
+              </Link>
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        <section id="use-cases" className="mb-12">
-          <h3 className="mb-4 text-2xl font-semibold text-green-700">Cas d'utilisation</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h4 className="mb-2 text-lg font-semibold text-blue-700">Hôpitaux</h4>
-              <p className="text-brown-600">
-                Amélioration de la recherche de dossiers médicaux et aide à la décision clinique.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h4 className="mb-2 text-lg font-semibold text-blue-700">Laboratoires de recherche</h4>
-              <p className="text-brown-600">
-                Accélération de l'analyse de la littérature scientifique et identification de nouvelles pistes de
-                recherche.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="pricing" className="mb-12">
-          <h3 className="mb-4 text-2xl font-semibold text-green-700">Tarification</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {["Basique", "Standard", "Entreprise"].map((plan) => (
-              <div key={plan} className="p-6 bg-white rounded-lg shadow-md">
-                <h4 className="mb-2 text-lg font-semibold text-blue-700">{plan}</h4>
-                <p className="mb-4 text-brown-600">Fonctionnalités adaptées à vos besoins spécifiques.</p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 text-white bg-blue-600 rounded-full hover:bg-blue-700"
-                >
-                  Voir les détails
-                </motion.button>
-              </div>
+      {/* Features Section */}
+      <section className="section-padding bg-[#92C0C8]">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-8 text-center text-[#234B4B]">Fonctionnalités clés</h2>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Shield,
+                title: "Sécurité des données",
+                description: "Protection avancée des informations sensibles",
+              },
+              { icon: Globe, title: "Support multilingue", description: "Analyse de données dans plusieurs langues" },
+              {
+                icon: Zap,
+                title: "Performances optimisées",
+                description: "Traitement rapide de grandes quantités de données",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="p-6 bg-white rounded-lg shadow-md"
+              >
+                <feature.icon className="w-12 h-12 mb-4 text-[#9A7A3F]" />
+                <h3 className="text-xl font-semibold mb-2 text-[#234B4B]">{feature.title}</h3>
+                <p className="text-[#234B4B]">{feature.description}</p>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="faq">
-          <h3 className="mb-4 text-2xl font-semibold text-green-700">FAQ</h3>
-          <div className="space-y-4">
-            <div>
-              <h4 className="mb-2 text-lg font-semibold text-blue-700">
-                Comment HealthRAG protège-t-il les données sensibles ?
-              </h4>
-              <p className="text-brown-600">
-                HealthRAG utilise des techniques de chiffrement avancées et respecte toutes les réglementations en
-                matière de protection des données de santé, y compris le RGPD et HIPAA.
-              </p>
-            </div>
-            <div>
-              <h4 className="mb-2 text-lg font-semibold text-blue-700">
-                HealthRAG peut-il s'intégrer à notre système existant ?
-              </h4>
-              <p className="text-brown-600">
-                Oui, HealthRAG est conçu pour s'intégrer facilement avec la plupart des systèmes de gestion de données
-                de santé existants. Notre équipe technique vous assistera tout au long du processus d'intégration.
-              </p>
-            </div>
+      {/* Use Cases */}
+      <section className="bg-white section-padding">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-8 text-center text-[#234B4B]">Cas d'utilisation</h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            {[
+              {
+                title: "Hôpitaux",
+                description: "Amélioration de la recherche de dossiers médicaux et aide à la décision clinique.",
+              },
+              {
+                title: "Laboratoires de recherche",
+                description:
+                  "Accélération de l'analyse de la littérature scientifique et identification de nouvelles pistes de recherche.",
+              },
+            ].map((useCase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[#92C0C8] p-6 rounded-lg shadow-md"
+              >
+                <h3 className="text-xl font-semibold mb-2 text-[#234B4B]">{useCase.title}</h3>
+                <p className="text-[#234B4B]">{useCase.description}</p>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      </motion.div>
-    </PageLayout>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section-padding bg-[#9A7A3F] text-white">
+        <div className="container text-center">
+          <h2 className="mb-6 text-3xl font-bold md:text-4xl">
+            Prêt à révolutionner votre approche des données de santé ?
+          </h2>
+          <p className="max-w-2xl mx-auto mb-8 text-xl">
+            Découvrez comment HealthRAG peut transformer votre gestion des informations médicales.
+          </p>
+          <Link href="#" className="btn-primary bg-white text-[#9A7A3F]">
+            Demander une démo
+          </Link>
+        </div>
+      </section>
+    </div>
   )
 }
 

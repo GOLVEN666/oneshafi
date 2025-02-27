@@ -2,117 +2,124 @@
 
 "use client"
 
-import PageLayout from "@/components/page-layout"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import Link from "next/link"
+import { Users, Handshake, ShoppingBag } from "lucide-react"
 
 const partnerships = [
   {
     id: "ambassadeur",
     name: "Devenir Ambassadeur",
     description: "Rejoignez notre communauté et partagez notre vision pour une santé naturelle et innovante.",
-    benefits: [
-      "Accès exclusif à nos produits et formations",
-      "Commissions attractives sur les ventes",
-      "Opportunités de networking",
-      "Participation à des événements exclusifs",
-    ],
-    image: "/placeholder.svg?text=Ambassadeur",
-    link: "/partenariats/ambassadeur",
+    icon: Users,
   },
   {
     id: "partenaire",
     name: "Devenir Partenaire",
     description: "Collaborez avec nous pour innover dans le domaine de la santé et créer un impact positif.",
-    benefits: [
-      "Co-développement de solutions innovantes",
-      "Accès à notre expertise en IA et santé naturelle",
-      "Visibilité accrue dans le secteur de la santé",
-      "Opportunités de croissance mutuelle",
-    ],
-    image: "/placeholder.svg?text=Partenaire",
-    link: "/partenariats/partenaire",
+    icon: Handshake,
   },
   {
     id: "revendeur",
     name: "Devenir Revendeur",
     description: "Distribuez nos produits et solutions pour contribuer à améliorer la santé de vos clients.",
-    benefits: [
-      "Gamme complète de produits naturels et solutions IA",
-      "Marges attractives et programme de fidélité",
-      "Support marketing et formation produit",
-      "Accès à notre réseau de professionnels de santé",
-    ],
-    image: "/placeholder.svg?text=Revendeur",
-    link: "/partenariats/revendeur",
+    icon: ShoppingBag,
   },
 ]
 
-const PartnershipSection = ({ partnership, index }) => {
-  const isOdd = index % 2 !== 0
+export default function PartnershipsPage() {
   return (
-    <motion.section
-      id={partnership.id}
-      className="mb-16"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-    >
-      <div className={`flex flex-col ${isOdd ? "md:flex-row-reverse" : "md:flex-row"} items-center`}>
-        <div className="mb-8 md:w-1/2 md:mb-0 md:px-4">
-          <Image
-            src={partnership.image || "/placeholder.svg"}
-            alt={partnership.name}
-            width={500}
-            height={300}
-            className="rounded-lg shadow-lg"
-          />
+    <div>
+      {/* Hero Section */}
+      <section className="bg-[#234B4B] text-white py-20">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="mb-6 text-4xl font-bold md:text-6xl">Partenariats & Communauté</h1>
+            <p className="max-w-2xl mx-auto mb-8 text-xl">
+              Rejoignez-nous dans notre mission pour révolutionner la santé en alliant tradition et innovation.
+            </p>
+          </motion.div>
         </div>
-        <div className="md:w-1/2 md:px-4">
-          <h2 className="mb-4 text-3xl font-bold text-blue-800">{partnership.name}</h2>
-          <p className="mb-6 text-gray-600">{partnership.description}</p>
-          <h3 className="mb-4 text-xl font-semibold text-green-700">Avantages :</h3>
-          <ul className="mb-6 text-gray-600 list-disc list-inside">
-            {partnership.benefits.map((benefit, index) => (
-              <li key={index}>{benefit}</li>
+      </section>
+
+      {/* Partnerships Grid */}
+      <section className="bg-white section-padding">
+        <div className="container">
+          <div className="grid gap-8 md:grid-cols-3">
+            {partnerships.map((partnership, index) => (
+              <motion.div
+                key={partnership.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-[#92C0C8] rounded-lg overflow-hidden shadow-lg p-6"
+              >
+                <partnership.icon className="w-16 h-16 mx-auto mb-4 text-[#234B4B]" />
+                <h3 className="text-xl font-bold mb-2 text-[#234B4B] text-center">{partnership.name}</h3>
+                <p className="text-[#234B4B] mb-4 text-center">{partnership.description}</p>
+                <div className="text-center">
+                  <Link href={`/partenariats/${partnership.id}`} className="btn-primary">
+                    En savoir plus
+                  </Link>
+                </div>
+              </motion.div>
             ))}
-          </ul>
-          <Link href={partnership.link}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 text-white transition duration-300 bg-blue-600 rounded-full hover:bg-blue-700"
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="section-padding bg-[#234B4B] text-white">
+        <div className="container">
+          <h2 className="mb-12 text-3xl font-bold text-center md:text-4xl">Ce que disent nos partenaires</h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="bg-[#92C0C8] p-6 rounded-lg"
             >
-              En savoir plus
-            </motion.button>
+              <p className="text-[#234B4B] mb-4 italic">
+                "Devenir ambassadeur pour Dar Shefaa & Sheva AI a été une expérience incroyable. J'ai pu partager ma
+                passion pour la santé naturelle tout en bénéficiant d'un soutien exceptionnel."
+              </p>
+              <p className="text-[#234B4B] font-bold">- Sarah M., Ambassadrice</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-[#92C0C8] p-6 rounded-lg"
+            >
+              <p className="text-[#234B4B] mb-4 italic">
+                "En tant que revendeur, j'ai pu offrir à mes clients des produits de haute qualité qui ont vraiment fait
+                la différence dans leur vie. Le support de l'équipe est incomparable."
+              </p>
+              <p className="text-[#234B4B] font-bold">- Ahmed K., Revendeur</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section-padding bg-[#9A7A3F] text-white">
+        <div className="container text-center">
+          <h2 className="mb-6 text-3xl font-bold md:text-4xl">Rejoignez Notre Réseau</h2>
+          <p className="max-w-2xl mx-auto mb-8 text-xl">
+            Ensemble, nous pouvons faire une réelle différence dans le domaine de la santé. Découvrez comment vous
+            pouvez contribuer à notre mission et faire partie de notre communauté grandissante."
+          </p>
+          <Link href="/contact" className="btn-primary bg-white text-[#9A7A3F]">
+            Contactez-nous
           </Link>
         </div>
-      </div>
-    </motion.section>
+      </section>
+    </div>
   )
 }
-
-const PartnershipsPage = () => {
-  return (
-    <PageLayout route="/partenariats">
-      <div className="container px-4 py-12 mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
-        >
-          <h1 className="mb-4 text-4xl font-bold text-blue-800">Partenariats & Communauté</h1>
-          <p className="text-xl text-gray-600">Rejoignez-nous dans notre mission pour révolutionner la santé</p>
-        </motion.div>
-        {partnerships.map((partnership, index) => (
-          <PartnershipSection key={partnership.id} partnership={partnership} index={index} />
-        ))}
-      </div>
-    </PageLayout>
-  )
-}
-
-export default PartnershipsPage
 
