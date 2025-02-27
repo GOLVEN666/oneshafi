@@ -49,7 +49,7 @@ export default function Blog() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-[#234B4B] text-white py-20">
+      <section id="header" className="bg-[#234B4B] text-white py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function Blog() {
       </section>
 
       {/* Blog Posts Grid */}
-      <section className="bg-white section-padding">
+      <section id="blogs" className="bg-white section-padding">
         <div className="container">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {blogPosts.map((post, index) => (
@@ -98,7 +98,7 @@ export default function Blog() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="section-padding bg-[#9A7A3F] text-white">
+      <section id="newsletter" className="section-padding bg-[#9A7A3F] text-white">
         <div className="container text-center">
           <h2 className="mb-6 text-3xl font-bold md:text-4xl">Restez informé</h2>
           <p className="max-w-2xl mx-auto mb-8 text-xl">

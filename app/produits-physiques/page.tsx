@@ -26,31 +26,31 @@ const products = [
     description: "Solution innovante pour le soulagement des douleurs dorsales, formulée à base de venin d'abeille.",
     image: "/placeholder.svg?text=Viniline",
   },
-  {
-    id: "plan-personnalise",
-    name: "Le Plan Personnalisé",
-    description: "Programme de santé sur mesure, conçu pour répondre à vos besoins spécifiques.",
-    image: "/placeholder.svg?text=Plan+Personnalisé",
-  },
-  {
-    id: "pilule-du-bonheur",
-    name: "La Pilule du Bonheur",
-    description: "Supplément naturel conçu pour améliorer l'humeur et réduire le stress.",
-    image: "/placeholder.svg?text=Pilule+du+Bonheur",
-  },
-  {
-    id: "bundles",
-    name: "Bundles & Combos",
-    description: "Ensembles de produits soigneusement sélectionnés pour offrir des solutions complètes.",
-    image: "/placeholder.svg?text=Bundles+%26+Combos",
-  },
+  // {
+  //   id: "plan-personnalise",
+  //   name: "Le Plan Personnalisé",
+  //   description: "Programme de santé sur mesure, conçu pour répondre à vos besoins spécifiques.",
+  //   image: "/placeholder.svg?text=Plan+Personnalisé",
+  // },
+  // {
+  //   id: "pilule-du-bonheur",
+  //   name: "La Pilule du Bonheur",
+  //   description: "Supplément naturel conçu pour améliorer l'humeur et réduire le stress.",
+  //   image: "/placeholder.svg?text=Pilule+du+Bonheur",
+  // },
+  // {
+  //   id: "bundles",
+  //   name: "Bundles & Combos",
+  //   description: "Ensembles de produits soigneusement sélectionnés pour offrir des solutions complètes.",
+  //   image: "/placeholder.svg?text=Bundles+%26+Combos",
+  // },
 ]
 
 export default function PhysicalProductsPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-[#234B4B] text-white py-20">
+      <section id="header" className="bg-[#234B4B] text-white py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ export default function PhysicalProductsPage() {
       </section>
 
       {/* Products Grid */}
-      <section className="bg-white section-padding">
+      <section id="products" className="bg-white section-padding">
         <div className="container">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
@@ -99,7 +99,7 @@ export default function PhysicalProductsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-[#9A7A3F] text-white">
+      <section id="cta" className="section-padding bg-[#9A7A3F] text-white">
         <div className="container text-center">
           <h2 className="mb-6 text-3xl font-bold md:text-4xl">Prêt à Transformer Votre Santé ?</h2>
           <p className="max-w-2xl mx-auto mb-8 text-xl">

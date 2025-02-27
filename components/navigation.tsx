@@ -38,7 +38,7 @@ export function Navbar({ categories = [] }: { categories?: Category[] }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-20 transition-all duration-300 ${
+      className={`sticky top-0 left-0 right-0 z-20 transition-all duration-300 ${
         isHeroActive ? "bg-transparent shadow-none" : "bg-white shadow-sm"
       }`}
     >
@@ -197,23 +197,23 @@ function MobileMenu({ open, setOpen }) {
     </motion.div>
   )
 }
-
-export const SideNavbar = ({ route }: { route: string }) => {
-  const currentNavItem = navigation.find((item) => item.route === route)
-  const sections = currentNavItem?.sections || []
+export const SideNavbar = () => {
+  const pathname = usePathname();
+  const currentNavItem = navigation.find((item) => item.route === pathname);
+  const sections = currentNavItem?.sections || [];
   const activeSection = useScrollSpy(
     sections.map((s) => s.id),
     { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
-  )
+  );
 
   const handleDotClick = (id: string) => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "center" })
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }
+  };
 
-  if (sections.length === 0) return null
+  if (sections.length === 0) return null;
 
   return (
     <div className="fixed z-50 hidden transform -translate-y-1/2 top-1/2 left-8 lg:block">
@@ -258,6 +258,5 @@ export const SideNavbar = ({ route }: { route: string }) => {
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};

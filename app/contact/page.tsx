@@ -25,7 +25,7 @@ export default function ContactPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-[#234B4B] text-white py-20">
+      <section id="contact" className="bg-[#234B4B] text-white py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form and Info Section */}
-      <section className="bg-white section-padding">
+      <section id="support" className="bg-white section-padding">
         <div className="container">
           <div className="grid gap-12 md:grid-cols-2">
             <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
@@ -141,7 +141,7 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="section-padding bg-[#92C0C8]">
+      <section id="map" className="section-padding bg-[#92C0C8]">
         <div className="container">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#234B4B]">Notre emplacement</h2>
           <div className="aspect-w-16 aspect-h-9">

@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-[#234B4B] text-white py-20">
+      <section id="header" className="bg-[#234B4B] text-white py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story Section */}
-      <section className="bg-white section-padding">
+      <section id="notre-histoire" className="bg-white section-padding">
         <div className="container">
           <div className="flex flex-col items-center md:flex-row">
             <motion.div
@@ -68,7 +68,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Values Section */}
-      <section className="section-padding bg-[#92C0C8]">
+      <section id="notre-valeurs" className="section-padding bg-[#92C0C8]">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#234B4B]">Nos Valeurs</h2>
           <div className="grid gap-8 md:grid-cols-3">
@@ -108,7 +108,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach Section */}
-      <section className="bg-white section-padding">
+      <section id="notre-approche" className="bg-white section-padding">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#234B4B]">Notre Approche</h2>
           <div className="grid gap-8 md:grid-cols-3">
@@ -147,7 +147,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="section-padding bg-[#92C0C8]">
+      <section id="notre-equipe" className="section-padding bg-[#92C0C8]">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#234B4B]">Notre Équipe</h2>
           <div className="grid gap-8 md:grid-cols-4">

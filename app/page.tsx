@@ -6,38 +6,23 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Leaf, Cpu, FlaskRoundIcon as Flask } from "lucide-react"
+import Hero from "@/components/Hero"
 
 export default function Home() {
   return (
-    <div>
+    <div className="-mt-28">
       {/* Hero Section */}
-      <section className="bg-[#234B4B] text-white py-20">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="mb-6 text-4xl font-bold md:text-6xl">
-              Fusion de la Sagesse Ancestrale et de l'Innovation Technologique
-            </h1>
-            <p className="max-w-2xl mx-auto mb-8 text-xl">
-              Découvrez comment Dar Shefaa & Sheva AI révolutionne la santé en combinant médecine traditionnelle et
-              intelligence artificielle.
-            </p>
-            <Link href="/produits-physiques" className="mr-4 btn-primary">
-              Découvrir nos produits
-            </Link>
-            <Link href="/contact" className="btn-secondary">
-              Nous contacter
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <motion.section 
+        id="hero"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <Hero />
+      </motion.section>
 
       {/* Features Section */}
-      <section className="bg-white section-padding">
+      <section id="features" className="bg-white section-padding">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#234B4B]">Nos Atouts</h2>
           <div className="grid gap-8 md:grid-cols-3">
@@ -67,7 +52,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="section-padding bg-[#234B4B] text-white">
+      <section id="about" className="section-padding bg-[#234B4B] text-white">
         <div className="container">
           <div className="flex flex-col items-center md:flex-row">
             <motion.div
@@ -105,7 +90,7 @@ export default function Home() {
       </section>
 
       {/* Products Preview Section */}
-      <section className="bg-white section-padding">
+      <section id="services" className="bg-white section-padding">
         <div className="container">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#234B4B]">Nos Produits Phares</h2>
           <div className="grid gap-8 md:grid-cols-3">
@@ -143,7 +128,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-[#9A7A3F] text-white">
+      <section id="cta" className="section-padding bg-[#9A7A3F] text-white">
         <div className="container text-center">
           <h2 className="mb-6 text-3xl font-bold md:text-4xl">Prêt à Transformer Votre Santé ?</h2>
           <p className="max-w-2xl mx-auto mb-8 text-xl">
