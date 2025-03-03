@@ -1,0 +1,45 @@
+/* app/globals.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #234b4b;
+  --color-secondary: #92c0c8;
+  --color-accent: #9a7a3f;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  color: #234b4b;
+  background-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+}
+
+.btn-primary {
+  @apply bg-[#9A7A3F] text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition duration-300;
+}
+
+.btn-secondary {
+  @apply bg-[#92C0C8] text-[#234B4B] px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition duration-300;
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.container {
+  @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+}
+

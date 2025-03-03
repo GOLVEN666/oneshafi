@@ -1,0 +1,195 @@
+1. Homepage
+Hero Section
+
+Full-screen video background (nature/plants/DNA/lab)
+
+H1: "Et si la nature détenait déjà les réponses à vos problèmes de santé ?"
+
+CTA Buttons: "Mon histoire" | "Notre boutique"
+
+Quick Overview Sections (Scroll-triggered parallax):
+
+Digital Products (Sheva AI): Brief intro with icons linking to individual service pages.
+
+Physical Products (Dar Shefaa): Highlight key products (Hemoneole, Shilajit, Viniline) with CTAs to shop.
+
+Holistic Programs: Overview of Le Plan Personnalisé with CTA to learn more.
+
+Partnership Opportunities: Links to Devenir Ambassadeur, Partenaire, and Revendeur.
+
+2. Physical Products (Dar Shefaa)
+Product Category Pages:
+
+Hémorroïdes → Hemoneole
+
+Hero image, key benefits, ingredients, testimonials, FAQ, CTA ("Commander").
+
+Énergie/Vitalité → Shilajit Brut
+
+Description, usage instructions, testimonials, CTA ("Commander").
+
+Douleurs Dorsales → Viniline
+
+Science behind bee venom, testimonials, CTA ("Commander").
+
+Programme Personnalisé → Le Plan Personnalisé
+
+Step-by-step guide (upload analyses, receive personalized plan, follow-up).
+
+Autres Produits → La Pilule du Bonheur
+
+Investment-focused page with details on ROI, vision, and CTA ("Investir").
+
+Product Bundles/Combos:
+
+Offer bundles (e.g., Hemoneole + Shilajit) with discounts.
+
+3. Digital Products (Sheva AI)
+Services Overview:
+
+Agent Laboratory (Recherche automatisée)
+
+Features: Automated literature review, ML code generation, report writing.
+
+Pricing tiers (Basique/Standard/Prime), testimonials, CTA ("Réserver une consultation").
+
+HealthRAG (IA sécurisée pour la santé)
+
+Features: Hybrid search, data privacy, multilingual support.
+
+Use cases (hospitals, clinics), pricing, CTA ("Réserver une consultation").
+
+Medivision (IA pour l’imagerie médicale)
+
+Features: Early detection algorithms, image enhancement, compliance.
+
+Case studies (cancer detection, trauma analysis), pricing, CTA ("Réserver une consultation").
+
+PredictHealth (IA prédictive)
+
+Features: Risk scores, dynamic predictions, resource optimization.
+
+Use cases (cardiology, oncology), pricing, CTA ("Réserver une consultation").
+
+TailorAI (Solutions sur mesure)
+
+Features: Custom AI development, iterative process, integration.
+
+Case studies (medical, industrial), pricing, CTA ("Réserver une consultation").
+
+4. Partnership & Community
+Devenir Ambassadeur
+
+Benefits: Access to exclusive products, training, community.
+
+Role description: Share content, host workshops, promote Dar Shefaa & Sheva AI.
+
+CTA: "Rejoignez-nous" (form to apply).
+
+Devenir Partenaire
+
+Types of partnerships: R&D, industrial, event-based.
+
+Benefits: Co-innovation, visibility, support.
+
+CTA: "Contactez-nous" (form to apply).
+
+Devenir Revendeur
+
+Benefits: High commissions, marketing support, exclusive training.
+
+Products to sell: AI solutions, natural products.
+
+CTA: "Devenir Revendeur Officiel" (form to apply).
+
+5. About Us
+Notre Histoire
+
+Mouad Mankour’s journey (from pain to hope).
+
+Key milestones in Dar Shefaa’s creation.
+
+Notre Vision
+
+Mission statement: Combining ancestral wisdom with modern science.
+
+Long-term goals: Global impact, innovation in natural healing.
+
+Notre Équipe
+
+Profiles of key team members (scientists, herbalists, engineers).
+
+Photos and bios.
+
+6. Boutique
+Filtres:
+
+Produits Naturels (Hemoneole, Shilajit, Viniline).
+
+Services IA (Agent Laboratory, HealthRAG, etc.).
+
+Product Pages:
+
+Detailed descriptions, images, pricing, testimonials, CTA ("Commander").
+
+Checkout Flow:
+
+Cart → Payment → Confirmation.
+
+7. Contact & Support
+Formulaire de Contact:
+
+Fields: Name, email, phone, message.
+
+CTA: "Envoyer".
+
+WhatsApp Integration:
+
+Direct chat button for instant support.
+
+FAQ Globale:
+
+Common questions about products, services, partnerships.
+
+8. Blog/Resources (Optional)
+Categories:
+
+Médecine Ancestrale: Articles on traditional remedies, plant-based healing.
+
+IA et Santé: Case studies, AI trends in healthcare.
+
+Témoignages: Success stories from clients and partners.
+
+CTA: Subscribe to newsletter for updates.
+
+9. Formulation Nutraceutique (Optional)
+Overview:
+
+Combining cosmetics and nutraceutical science.
+
+Key ingredients, R&D process, compliance.
+
+Services for Labs:
+
+Co-creation, testing, production support.
+
+CTA: "Contactez-nous".
+
+10. Legal Pages
+Politique de Confidentialité
+
+Conditions Générales de Vente
+
+Mentions Légales
+
+Questions for Iteration:
+Should the "Formulation Nutraceutique" section be a standalone page or integrated into "About Us" or "Services"?
+
+Do you want a dedicated "Investors" page for "La Pilule du Bonheur", or keep it under Physical Products?
+
+Should the "Blog/Resources" section be a priority, or is it optional for now?
+
+How detailed should the "Partnership & Community" pages be? Should they include case studies or testimonials?
+
+Do you want a "Newsletter Signup" pop-up or section on the homepage?
+
