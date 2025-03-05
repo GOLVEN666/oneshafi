@@ -3,12 +3,71 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense, lazy } from "react"
 import { Search, ShoppingCart } from "lucide-react"
 import { useCart } from "@/context/CartContext"
-import OrderModal from "@/components/ui/OrderModal"
-import CartModal from "@/components/ui/CartModal"
 import { getProducts } from "@/lib/appwrite"
+
+// Lazy load modals
+const OrderModal = lazy(() => import("@/components/ui/OrderModal"))
+const CartModal = lazy(() => import("@/components/ui/CartModal"))
+
+interface ProductCardProps {
+  product: any; // Replace with proper product type if available
+  onOrderClick: (product: any) => void;
+}
+
+// Separate Product Card component for better performance
+const ProductCard = ({ product, onOrderClick }: ProductCardProps) => (
+  <motion.div
+    key={product.$id}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="p-6 bg-white rounded-lg shadow-md"
+  >
+    <div className="relative aspect-[3/2] mb-4">
+      <Image
+        src={product.image || "/placeholder.svg"}
+        alt={product.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover rounded"
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkLUEwLi0tLTAtQFBGRkBQRi0tMD0tLS1BVUFERUFKSU1PS0H/2wBDAR"
+      />
+    </div>
+    <h3 className="text-xl font-semibold mb-2 text-[#234B4B]">{product.name}</h3>
+    <p className="text-[#9A7A3F] mb-2">{product.category}</p>
+    <p className="text-[#234B4B] font-bold mb-4">{product.price}</p>
+    <div className="flex space-x-2">
+      <button onClick={() => onOrderClick(product)} className="flex-1 btn-primary">
+        {product.price === "Sur devis" ? "Demander un devis" : "Commander"}
+      </button>
+      <Link
+        href={`/${product.category.toLowerCase().replace(/\s+/g, "-")}/${product.slug}`}
+        className="flex-1 text-center btn-secondary"
+      >
+        Détails
+      </Link>
+    </div>
+  </motion.div>
+)
+
+// Loading skeleton
+const ProductSkeleton = () => (
+  <div className="p-6 bg-white rounded-lg shadow-md animate-pulse">
+    <div className="bg-gray-200 aspect-[3/2] mb-4 rounded" />
+    <div className="h-6 bg-gray-200 rounded mb-2" />
+    <div className="h-4 bg-gray-200 rounded mb-2 w-1/2" />
+    <div className="h-4 bg-gray-200 rounded mb-4" />
+    <div className="flex space-x-2">
+      <div className="flex-1 h-10 bg-gray-200 rounded" />
+      <div className="flex-1 h-10 bg-gray-200 rounded" />
+    </div>
+  </div>
+)
 
 export default function Boutique() {
   const [products, setProducts] = useState<any[]>([])
@@ -21,7 +80,7 @@ export default function Boutique() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchProducts() {
+    const fetchProducts = async () => {
       try {
         const fetchedProducts = await getProducts()
         setProducts(fetchedProducts)
@@ -35,27 +94,17 @@ export default function Boutique() {
     fetchProducts()
   }, [])
 
-  // Filter products based on category and search term
+  // Memoize filtered products
   const filteredProducts = products
     .filter((product) => (filter === "Tous" ? true : product.category === filter))
-    .filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    .filter((product) => 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
     )
-
-  const handleOrderClick = (product: any) => {
-    setSelectedProduct(product)
-    setIsOrderModalOpen(true)
-  }
-
-  if (loading) {
-    return <div className="container py-20 text-center">Chargement...</div>
-  }
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section - Optimized for LCP */}
       <section className="bg-[#234B4B] text-white py-20">
         <div className="container">
           <motion.div
@@ -72,7 +121,7 @@ export default function Boutique() {
         </div>
       </section>
 
-      {/* Shop Section */}
+      {/* Shop Section with optimized rendering */}
       <section className="bg-white section-padding">
         <div className="container">
           {/* Filter and Search */}
@@ -115,43 +164,30 @@ export default function Boutique() {
             </div>
           </div>
 
-          {/* Products Grid */}
+          {/* Products Grid with loading state */}
           <div className="grid gap-8 md:grid-cols-3">
-            {filteredProducts.length === 0 ? (
+            {loading ? (
+              // Show loading skeletons
+              Array.from({ length: 6 }).map((_, index) => (
+                <ProductSkeleton key={index} />
+              ))
+            ) : filteredProducts.length === 0 ? (
               <div className="col-span-3 py-12 text-center">
-                <p className="text-lg text-gray-500">Aucun produit ne correspond à votre recherche.</p>
+                <p className="text-lg text-gray-500">
+                  Aucun produit ne correspond à votre recherche.
+                </p>
               </div>
             ) : (
+              // Render actual products
               filteredProducts.map((product) => (
-                <motion.div
+                <ProductCard
                   key={product.$id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="p-6 bg-white rounded-lg shadow-md"
-                >
-                  <Image
-                    src={product.image || "/placeholder.svg"}
-                    alt={product.name}
-                    width={300}
-                    height={300}
-                    className="object-cover w-full h-48 mb-4 rounded"
-                  />
-                  <h3 className="text-xl font-semibold mb-2 text-[#234B4B]">{product.name}</h3>
-                  <p className="text-[#9A7A3F] mb-2">{product.category}</p>
-                  <p className="text-[#234B4B] font-bold mb-4">{product.price}</p>
-                  <div className="flex space-x-2">
-                    <button onClick={() => handleOrderClick(product)} className="flex-1 btn-primary">
-                      {product.price === "Sur devis" ? "Demander un devis" : "Commander"}
-                    </button>
-                    <Link
-                      href={`/${product.category.toLowerCase().replace(/\s+/g, "-")}/${product.slug}`}
-                      className="flex-1 text-center btn-secondary"
-                    >
-                      Détails
-                    </Link>
-                  </div>
-                </motion.div>
+                  product={product}
+                  onOrderClick={() => {
+                    setSelectedProduct(product)
+                    setIsOrderModalOpen(true)
+                  }}
+                />
               ))
             )}
           </div>
@@ -171,12 +207,22 @@ export default function Boutique() {
         </div>
       </section>
 
-      {/* Modals */}
-      {selectedProduct && (
-        <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} product={selectedProduct} />
-      )}
-
-      <CartModal isOpen={isCartModalOpen} onClose={() => setIsCartModalOpen(false)} />
+      {/* Modals with Suspense */}
+      <Suspense fallback={null}>
+        {selectedProduct && isOrderModalOpen && (
+          <OrderModal
+            isOpen={isOrderModalOpen}
+            onClose={() => setIsOrderModalOpen(false)}
+            product={selectedProduct}
+          />
+        )}
+        {isCartModalOpen && (
+          <CartModal
+            isOpen={isCartModalOpen}
+            onClose={() => setIsCartModalOpen(false)}
+          />
+        )}
+      </Suspense>
     </div>
   )
 }

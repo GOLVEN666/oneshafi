@@ -42,7 +42,7 @@ const Hero = () => {
 
   return (
     <section className="relative flex items-center min-h-screen overflow-hidden">
-      {/* Video Background */}
+      {/* Vidéo de fond */}
       <video
         ref={videoRef}
         autoPlay
@@ -56,10 +56,10 @@ const Hero = () => {
           src="https://videos.ctfassets.net/oz7i9nkwgj2z/4pxSlK9wxRjmk0UAWAxZI0/30408ef32e09a5ef88079f0e7e412113/Home_-_Intro_Video.mp4"
           type="video/mp4"
         />
-        Your browser does not support the video tag.
+        Votre navigateur ne supporte pas la lecture de cette vidéo.
       </video>
 
-      {/* Gradient Overlay */}
+      {/* Superposition en dégradé */}
       <div
         className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/20 to-black/40"
         style={{ backdropFilter: "brightness(0.8)" }}
@@ -76,18 +76,18 @@ const Hero = () => {
             ONESHAFI
           </motion.span>
           <h1 ref={headingRef} className="mb-6 text-6xl font-bold text-white">
-            We Know <span className="block italic text-green-400 text-7xl">Nature</span>
+            Nous Connaissons <span className="block italic text-green-400 text-7xl">la Nature</span>
           </h1>
           <p ref={subheadingRef} className="max-w-2xl mb-8 text-xl text-gray-200">
-            oneshafi is a pioneer in biosciences and artificial intelligence that finds compounds in nature that can
-            help restore human health.
+            oneshafi est un pionnier des biosciences et de l'intelligence artificielle qui identifie des composés
+            naturels capables d'aider à restaurer la santé humaine.
           </p>
           <motion.button
             className="flex items-center font-semibold text-green-400 transition-colors group hover:text-green-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span>OUR STORY</span>
+            <span>NOTRE HISTOIRE</span>
             <svg
               className="w-4 h-4 ml-2 transition-transform transform group-hover:translate-x-1"
               viewBox="0 0 24 24"
@@ -102,20 +102,8 @@ const Hero = () => {
           </motion.button>
         </div>
       </div>
-
-      <motion.div
-        className="fixed z-[5] px-4 py-2 text-sm font-semibold text-green-400 rounded-full bottom-8 right-8 bg-black/80 backdrop-blur-sm"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1 }}
-      >
-        FORAGER TIME
-        <br />
-        INVENTION OF 2024!
-      </motion.div>
     </section>
   )
 }
 
 export default Hero
-
